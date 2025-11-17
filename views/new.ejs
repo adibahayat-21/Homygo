@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Homygo!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=MonteCarlo&family=Cormorant+Upright:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/new.css">
+
+  <!-- Bootstrap CSS -->
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous">
+</head>
+<body>
+
+  <!-- HEADER -->
+
+       <header>
+        <div class="logo">
+            <img src="/aircraft.png" alt="Logo">
+            <h1>The HomyGo</h1>
+        </div>
+        <nav class="desktop-nav">
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/listings">Listings</a></li>
+                <li><a href="/about">About</a></li>
+              
+            </ul>
+        </nav>
+        
+        <div class="header-actions">
+            <a href="/listings" class="cta">Back</a>
+            <% if(!check_user) { %>
+                <a href="/login" class="header-auth-btn">Login</a>
+                <a href="/signup" class="header-auth-btn">Signup</a>
+            <% } else { %>
+                <a href="/logout" class="header-auth-btn">Logout</a>
+            <% } %>
+        </div>
+
+        <i class="fa-solid fa-bars sidebar-toggle"></i>
+    </header>
+
+      <div class="sidebar">
+        <a href="/home">Home</a>
+        <a href="/listings">Listings</a>
+        <a href="/about">About</a>
+       
+
+        <% if(!check_user) { %>
+            <a href="/login">Login</a>
+            <a href="/signup">Signup</a>
+        <% } else { %>
+            <a href="/logout">Logout</a>
+        <% } %>
+    </div>
+<script>
+   document.addEventListener('DOMContentLoaded', () => {
+        const sidebarToggle = document.querySelector('.sidebar-toggle');
+        const sidebar = document.querySelector('.sidebar');
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+        document.addEventListener('click', (event) => {
+            if (!sidebar.contains(event.target) && !sidebarToggle.contains(event.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+    });
+</script>
+
+  <!-- FORM CARD -->
+  <div class="form-container">
+    <h2 style="font-family: 'Cormorant Upright', serif;">Add New Homygo</h2>
+
+    <form method="post" action="/listings" class="needs-validation" novalidate enctype="multipart/form-data">
+      
+      <div class="form-group">
+        <label for="title">Title :</label>
+        <input id="title" name="listing[title]" class="form-control" placeholder="Enter title..." required>
+        <div class="invalid-feedback">Please enter a title.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description :</label>
+        <textarea id="description" name="listing[description]" class="form-control" placeholder="Write about your stay..." required></textarea>
+        <div class="invalid-feedback">Please enter a description.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="price">Price :</label>
+        <input id="price" name="listing[price]" class="form-control" placeholder="Price..." required>
+        <div class="invalid-feedback">Please enter a valid price.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="image">Upload Image :</label>
+        <input id="image" name="listing[image]" type="file" class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label for="location">Location :</label>
+        <input id="location" name="listing[location]" class="form-control" placeholder="Location..." required>
+        <div class="invalid-feedback">Please enter a location.</div>
+      </div>
+      
+        <div class="form-group">
+        <label for="Country">Country :</label>
+        <input id="country" name="listing[country]" class="form-control" placeholder="Country..." required>
+        <div class="invalid-feedback">Please enter a country.</div>
+        </div>
+
+        <div class="form-group">
+  <label for="category">Category :</label>
+  <select id="category" name="listing[category]" class="form-control" required>
+    <option value="" disabled selected>Select Category</option>
+    <option value="Trending">Trending</option>
+    <option value="Rooms">Rooms</option>
+    <option value="Iconic Cities">Iconic Cities</option>
+    <option value="Castles">Castles</option>
+    <option value="Pools">Pools</option>
+    <option value="Arctic">Arctic</option>
+    <option value="Farmhouse">Farmhouse</option>
+    <option value="Nature">Nature</option>
+    <option value="Beach">Beach</option>
+  </select>
+  <div class="invalid-feedback">Please select a category.</div>
+</div>
+
+
+      <div class="form-actions">
+        <button type="submit" class="btn-submit">✨ Add New Listing</button>
+      </div>
+    </form>
+
+    <div style="text-align:center;">
+      <a href="/listings" class="back-link">← Back to Listings</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer" style="margin-top: 20px;">
+    <div class="footer-container">
+      <div class="footer-newsletter">
+        <h2>Newsletter</h2>
+        <p>Sign up to receive updates and special offers.</p>
+        <form method="post" action="/listings" class="needs-validation" novalidate>
+          <input type="email" class="form-control mb-2" placeholder="Email " required>
+          <label>
+            <input type="checkbox"> Yes, subscribe me to your newsletter.
+          </label>
+          <div class="invalid-feedback">Please enter a valid email.</div>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+
+      <div class="footer-info">
+        <div>
+          <h2>Address</h2>
+          <p>500 Terry Francine St.<br>San Francisco, CA 94158</p>
+        </div>
+        <div>
+          <h2>Contact</h2>
+          <p>info@mysite.com<br>123-456-7890</p>
+        </div>
+      </div>
+
+      <div class="footer-follow">
+        <h2>Follow</h2>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">TikTok</a></li>
+        </ul>
+        <div class="footer-links">
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Accessibility Statement</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-brand">The Homygo</div>
+
+    <div class="footer-bottom">
+      <p>© 2025 by The Homygo. Built with ❤</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script 
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+  <script src="/js/script.js"></script>
+</body>
+</html>

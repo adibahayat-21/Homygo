@@ -1,0 +1,573 @@
+/* General and Global Styles - Matched with signup.css */
+body {
+    font-family: 'Cormorant Upright', serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fbf7f7;
+    color: #3d1c1a;
+    /* This is important for making the content fill the screen vertically */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Header and Footer - Reused from signup.css */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: rgb(249, 232, 232);
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+}
+
+header .logo img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+header .logo h1 {
+    font-family: "MonteCarlo", cursive;
+    font-size: 30px;
+    color: #c90f41;
+    font-weight: 800;
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #ac2458;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    border-bottom: 2px solid #c53a72;
+}
+
+.cta {
+    border: 1px solid #c82150;
+    padding: 8px 20px;
+    font-family: 'Cormorant Upright', serif;
+    font-size: 16px;
+    color: #c03452;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.cta:hover {
+    background-color: #be2f66;
+    color: #fff;
+}
+
+.footer {
+    background: linear-gradient(to top, rgba(199, 42, 81, 0.7), rgba(212, 44, 75, 0.9));
+    color: #fff;
+    padding: 60px 80px 40px;
+    font-family: 'Cormorant Upright', serif;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 40px;
+}
+
+.footer h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.footer-newsletter p {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.footer-newsletter input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: none;
+    outline: none;
+}
+
+.footer-newsletter label {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.footer-newsletter button {
+    background: #fff;
+    color: #3b0d0d;
+    padding: 10px 25px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 600;
+}
+
+.footer-newsletter button:hover {
+    background: #7c192b;
+    color: #fff;
+}
+
+.footer-info p {
+    margin: 5px 0;
+    font-size: 15px;
+}
+
+.footer-follow ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+}
+
+.footer-follow ul li {
+    margin-bottom: 8px;
+}
+
+.footer-follow ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-follow ul li a:hover {
+    color: #c9330f;
+}
+
+.footer-links a {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #ccc;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+.footer-brand {
+    text-align: center;
+    font-family: "MonteCarlo", cursive;
+    font-size: 110px;
+    font-weight: normal;
+    color: #fff;
+    margin: 30px 0 10px 0;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 14px;
+    color: #ddd;
+    margin-bottom: 10px;
+}
+
+.footer-bottom p {
+    margin: 0;
+}
+
+/* Responsive styles for Header and Footer */
+@media (max-width: 992px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 900px) {
+    .footer-brand {
+        font-size: 50px;
+    }
+}
+/* This is the key change to make the signup container full-screen */
+.signup-container {
+    display: flex;
+    width: 100%;
+    flex-grow: 1; /* This will make it fill the space between header and footer */
+    min-height: auto; /* Remove fixed height for responsiveness */
+    background-color: #fbf7f7; /* Background color of the whole section */
+}
+
+/* Left side with Video Background */
+.signup-video-section {
+    flex: 2; /* Adjusting the flex ratio */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    min-height: 400px;
+}
+
+.signup-video-section .background-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    background-size: cover;
+}
+
+.signup-video-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(199, 42, 81, 0.4), rgba(212, 44, 75, 0.6));
+    z-index: 2;
+}
+
+.video-overlay-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    color: #fff;
+    padding: 30px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.video-overlay-content h2 {
+    font-family: "MonteCarlo", cursive;
+    font-size: 55px;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.video-overlay-content p {
+    font-size: 19px;
+    line-height: 1.6;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+/* Right side with Form */
+.signup-form-container {
+    flex: 1.2; /* Adjusting the flex ratio */
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #fff;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-header .form-logo {
+    width: 40px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.form-header h2 {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 42px;
+    font-weight: 600;
+    color: #b92b4f;
+    margin: 0;
+}
+
+.form-header h3 {
+    font-size: 18px;
+    color: rgb(224, 76, 125);
+    margin: 5px 0 0;
+    font-weight: 400;
+}
+
+.social-login {
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.social-btn {
+    flex: 1.4;
+    padding: 12px;
+    border: 1px solid #d4d4d4;
+    border-radius: 8px;
+    background-color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: #4b4b4b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-btn i {
+    margin-right: 8px;
+}
+
+.social-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.divider {
+    text-align: center;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background-color: #e0d9d6;
+}
+
+.divider::before {
+    left: 0;
+}
+
+.divider::after {
+    right: 0;
+}
+
+.divider span {
+    font-size: 14px;
+    color: #a13153;
+    padding: 0 10px;
+    background-color: #fff;
+    position: relative;
+    z-index: 2;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e0d9d6;
+    border-radius: 8px;
+    background-color: #f9f6f4;
+    font-family: inherit;
+    font-size: 16px;
+    color: #3d1c1a;
+    box-sizing: border-box;
+}
+
+.form-group input::placeholder {
+    color: #c4a1b0;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #c82150;
+    box-shadow: 0 0 5px rgba(200, 33, 80, 0.2);
+}
+
+.remember-me {
+    font-size: 14px;
+    color: #a13153;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.remember-me input {
+    margin-right: 8px;
+}
+
+.signup-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #c03452;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Cormorant Upright', serif;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    height:8%;
+    transition: background-color 0.3s;
+}
+
+.signup-btn:hover {
+    background-color: #be2f66;
+}
+
+.login-link-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #a13153;
+}
+
+.login-link-footer a {
+    color: #c82150;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.login-link-footer a:hover {
+    color: #be2f66;
+}
+
+/* Responsive Design */
+@media (max-width: 850px) {
+    .signup-container {
+        flex-direction: column;
+        width: 100%; /* Changed from 95% */
+        margin: 0; /* Changed from 20px auto */
+        min-height: unset;
+    }
+
+    .signup-video-section {
+        min-height: 250px;
+        flex: none;
+    }
+
+    .video-overlay-content h2 {
+        font-size: 40px;
+    }
+
+    .video-overlay-content p {
+        font-size: 16px;
+    }
+
+    .signup-form-container {
+        padding: 30px 20px;
+        flex: 1.8;
+        width: 100%;
+    }
+
+    .form-header h2 {
+        font-size: 32px;
+    }
+
+    .divider::before,
+    .divider::after {
+        width: 35%;
+    }
+}
+
+/* Header action buttons */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cta {
+    border: 1px solid #e12963;
+    padding: 8px 20px;
+    font-family: 'Cormorant Upright', serif;
+    font-size: 16px;
+    color: #bc285f;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.cta:hover {
+    background-color: #ca2c6b;
+    color: #f3ecec;
+}
+
+.header-auth-btn {
+    text-decoration: none;
+    color: #9f193c;
+    font-family: 'Cormorant Upright', serif;
+    font-size: 16px;
+    padding: 8px;
+    transition: color 0.3s ease;
+}
+
+.header-auth-btn:hover {
+    color: #be2469;
+}
+
+/* Sidebar Toggle Icon Styling */
+.sidebar-toggle {
+    font-size: 24px;
+    color: #bd1b59;
+    cursor: pointer;
+    display: none; /* Hidden by default on desktop */
+}
+
+/* Sidebar Styling */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #fbf7f7;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.4s ease;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    padding-top: 80px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #b4134b;
+    padding: 15px 25px;
+    font-size: 18px;
+    font-family: 'Cormorant Upright', serif;
+    border-bottom: 1px solid rgba(201, 51, 15, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover {
+    background-color: rgba(201, 51, 15, 0.1);
+}
+
+.sidebar.active {
+    right: 0;
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 20px;
+    }
+    header .desktop-nav {
+        display: none;
+    }
+    .header-actions {
+        display: none; /* Hiding the entire button group on mobile */
+    }
+    .sidebar-toggle {
+        display: block;
+    }
+  }

@@ -1,0 +1,1061 @@
+/* ================================================= */
+/* 0. GLOBAL & UTILITY */
+/* ================================================= */
+
+/* Ensure box model is consistent */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Cormorant Upright', serif;
+    background: white;
+    margin: 0;
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* ================================================= */
+/* 1. HEADER & NAVIGATION */
+/* ================================================= */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: #fbf7f7;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 50px;
+    margin-right: 12px;
+}
+
+.logo h1 {
+    font-family: "MonteCarlo", cursive;
+    font-size: 30px;
+    font-weight: 600;
+    color: #c90f18;
+    margin: 0;
+}
+
+.desktop-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+.desktop-nav ul li a {
+    color: #c90f0f;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.cta {
+    border: 1px solid #b02935;
+    padding: 8px 20px;
+    font-family: 'Cormorant Upright', serif;
+    font-size: 16px;
+    color: #c32f34;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.cta:hover {
+    background-color: #d12525;
+    color: #f3ecec;
+}
+
+.header-auth-btn {
+    text-decoration: none;
+    color: #c3182f;
+    font-family: 'Cormorant Upright', serif;
+    font-size: 16px;
+    padding: 8px;
+    transition: color 0.3s ease;
+}
+
+.sidebar-toggle {
+    display: none; /* Hidden by default */
+    font-size: 28px;
+    color: #bb1321;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    z-index: 1000;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #fbf7f7;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.4s ease;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    padding-top: 80px;
+}
+
+.sidebar.active {
+    right: 0;
+}
+
+/* Flash Message base styles (to clean up inline styles) */
+#flashMsg {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 920px;
+    width: calc(100% - 40px);
+    padding: 12px 16px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(12, 20, 40, 0.35);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    font-size: 15px;
+    line-height: 1.2;
+    backdrop-filter: blur(6px);
+    transition: transform 220ms ease, opacity 220ms ease;
+}
+
+.flash-success {
+    background: linear-gradient(90deg, rgba(219, 28, 66, 0.95), rgba(227, 58, 83, 0.95));
+    color: white;
+}
+
+.flash-error {
+    background: linear-gradient(90deg,rgba(55, 53, 53, 0.95),rgba(158, 156, 159, 0.95));
+    color: white;
+}
+
+.flash-icon {
+    min-width:36px;
+    height:36px;
+    border-radius: 9px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: rgba(255,255,255,0.12);
+    font-weight:700;
+    font-size:18px;
+}
+
+.flash-text {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right:8px;
+}
+
+.flash-close-btn {
+    border: none;
+    background: transparent;
+    color: rgba(255,255,255,0.95);
+    font-size: 16px;
+    padding: 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 120ms ease, background 120ms ease;
+}
+
+.flash-close-btn:hover {
+    background:'rgba(255,255,255,0.08)';
+}
+
+/* ================================================= */
+/* 2. ROOM CONTAINER (MAIN CONTENT) */
+/* ================================================= */
+
+.room-container {
+    display: flex;
+    max-width: 1100px;
+    margin: 40px auto;
+    background: cornsilk;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.1);
+}
+
+.room-image {
+    flex: 1.1;
+    padding: 20px;
+}
+
+.room-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.room-details {
+    flex: 1;
+    padding: 50px 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.room-details h2 {
+    margin: 0 0 18px 0;
+    font-size: 32px;
+    font-weight: 600;
+    color: #c3240f;
+}
+
+.room-overview {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 22px;
+    color: #444;
+    font-size: 15px;
+}
+
+.room-description {
+    margin-bottom: 25px;
+    line-height: 1.7;
+    font-size: 18px !important; /* Made the font slightly bigger for readability */
+    color: #555;
+}
+
+.room-info {
+    margin-bottom: 25px;
+    font-size: 15px;
+}
+
+.price-text {
+    font-size: 25px !important; /* Overriding inline font-size */
+    margin-top: 5px; /* Adjusting margin */
+}
+
+.location-text {
+    font-size: 16px !important; /* Overriding inline font-size */
+    color: rgb(89, 86, 86);
+}
+
+.hosted-by {
+    color: rgb(179, 21, 21);
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.room-actions {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    background: #0077cc;
+    transition: 0.3s;
+    font-size: 15px;
+}
+
+.delete {
+    background: #e63946;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: large;
+    color: #c3240f;
+    text-decoration: none;
+}
+
+/* ================================================= */
+/* 3. MAP SECTION */
+/* ================================================= */
+
+.map-section {
+    margin: 50px auto;
+    width: 90%;
+    max-width: 1200px;
+    background: linear-gradient(135deg, #ffe4c5, #ffe2db);
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.map-heading {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 36px;
+    background: linear-gradient(to right, #b20e0e, #f91442);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 25px;
+}
+
+#map {
+    width: 100%;
+    height: 450px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: 2px solid #fff6ff;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ================================================= */
+/* 4. REVIEW SECTION */
+/* ================================================= */
+
+.review-section {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background: cornsilk;
+    border-radius: 12px;
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.review-section h2 {
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #c92c3d;
+    font-weight: 600;
+}
+
+.review-form .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+.review-form input[type="range"] {
+    width: 100%;
+    accent-color: #c92c3d;
+    color: #ccc;
+}
+.review-form label {
+    font-size: 16px;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.rating-scale {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #555;
+    width: 100%;
+}
+
+.review-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    color: rgb(174, 44, 85);
+    resize: none;
+    font-size: 15px;
+    font-family: inherit;
+}
+
+.custom-invalid-feedback {
+    color: rgb(127, 23, 41) !important;
+    background-color: rgb(244, 213, 173) !important;
+    width: auto !important;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.review-form .invalid-feedback {
+    display: none;
+}
+
+.review-form.was-validated textarea:invalid ~ .invalid-feedback,
+.review-form.was-validated input:invalid ~ .invalid-feedback {
+    display: block;
+}
+
+.review-btn, .review-delete-btn {
+    color: white;
+    background: rgba(201, 44, 61, 0.8);
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+/* ================================================= */
+/* 5. TESTIMONIAL SLIDER */
+/* ================================================= */
+
+.testimonial-slider-section {
+    width: 90%; /* Responsive width */
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 30px 20px;
+    background: #fdfaf5;
+    border-radius: 15px;
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonial-slider-section .section-title {
+    margin-bottom: 10px;
+    font-size: 40px;
+    color: #c92c3d;
+}
+
+.testimonial-slider-section h2 {
+    /* Title of listing inside slider */
+    margin-bottom: 30px;
+    font-size: 28px;
+    color: rgb(190, 50, 85);
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 400px; /* Adjusted height */
+}
+
+.slider-content {
+    width: 100%;
+    position: relative;
+}
+
+.testimonial-slide {
+    padding: 0 50px;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease-in-out;
+}
+
+.testimonial-slide.active {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+}
+
+.reviewer-image-wrapper {
+    position: relative;
+    display: inline-block;
+    margin: 0 auto 15px auto; /* Centered */
+}
+
+.reviewer-avatar-lg {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #c92c3d;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.quote-icon {
+    position: absolute;
+    bottom: -5px;
+    right: 5px;
+    background-color: #c92c3d;
+    color: white;
+    font-size: 32px;
+    line-height: 1;
+    padding: 6px 12px;
+    border-radius: 50%;
+    font-family: serif;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transform: rotate(180deg);
+}
+
+.testimonial-stars {
+    margin: 10px auto 15px auto; /* Centered */
+    font-size: 24px;
+    color: #ccc;
+    letter-spacing: 3px;
+}
+
+.testimonial-stars .star.filled {
+    color: #ffc107;
+}
+
+.testimonial-text {
+    font-size: 24px !important; /* Overriding original 30px */
+    line-height: 1.6;
+    font-weight: 500;
+    color: #444;
+    max-width: 800px;
+    margin: 10px auto 30px auto !important; /* Centered */
+    font-family: 'Cormorant Upright';
+}
+
+.review-author-wrapper {
+    /* New wrapper for centering the author name */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.review-author-name {
+    font-size: 18px !important; /* Overriding original 'large' */
+    color: rgb(186, 32, 58);
+    background-color: rgb(255, 243, 190);
+    border-radius: 30px;
+    width: auto;
+    display: inline-block;
+    padding: 5px 15px;
+    margin: 0 auto !important; /* Centered */
+}
+
+.review-delete-btn {
+    display: block;
+    margin: 10px auto 0 auto;
+    padding: 8px 15px;
+    background-color: #e63946;
+}
+
+/* Slider Navigation Buttons */
+.slider-btn {
+    background-color: rgba(201, 44, 61, 0.8);
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    margin-top: 10px;
+    position: absolute;
+    top: 30%;
+    transform: translateY(-50%);
+    z-index: 10;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.slider-btn.prev-btn {
+    left: 10px;
+}
+
+.slider-btn.next-btn {
+    right: 10px;
+}
+
+
+/* ================================================= */
+/* 6. FOOTER */
+/* ================================================= */
+
+.footer {
+    background: linear-gradient(to top,rgb(162, 33, 54), rgba(234, 52, 94, 0.96));
+    color: #fff;
+    padding: 70px 80px 40px;
+    font-family: 'Cormorant Upright', serif;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    gap: 70px;
+    margin-bottom: 50px;
+}
+
+/* Big decorative brand text */
+.footer-brand {
+    text-align: center;
+    font-family: "MonteCarlo", cursive;
+    font-size: 95px;
+    font-weight: normal;
+    color: #fff;
+    margin: 25px 0 15px 0;
+}
+
+/* Copyright text */
+.footer-bottom {
+    text-align: center;
+    font-size: 14px;
+    color: #ddd;
+    margin-bottom: 10px;
+}
+
+
+/* ================================================= */
+/* 7. MEDIA QUERIES (RESPONSIVENESS) */
+/* ================================================= */
+
+/* Tablet and Large Mobile Screens (max-width: 950px) */
+@media (max-width: 950px) {
+    /* Header */
+    header {
+        padding: 15px 20px;
+    }
+    .desktop-nav, .header-actions {
+        display: none; /* Hide desktop nav and actions */
+    }
+    .sidebar-toggle {
+        display: block; /* Show hamburger */
+    }
+
+    /* Room Container */
+    .room-container {
+        flex-direction: column; /* Stack image and details */
+        margin: 20px 15px;
+    }
+    .room-image {
+        padding: 15px 15px 5px 15px;
+    }
+    .room-image img {
+        height: 350px; /* Fixed height for better presentation */
+        width: 100%;
+    }
+    .room-details {
+        padding: 25px;
+    }
+
+    /* Map and Review Section */
+    .map-section, .review-section {
+        margin: 30px 15px;
+        padding: 20px;
+    }
+
+    /* Testimonial Slider */
+    .testimonial-slider-section {
+        padding: 20px 10px;
+        min-height: 350px;
+    }
+
+    .slider-btn {
+        padding: 12px 16px;
+        font-size: 24px;
+    }
+
+    .testimonial-slide {
+        padding: 0 10px;
+    }
+    
+    .testimonial-text {
+        font-size: 20px !important;
+    }
+
+    /* Footer */
+    .footer-container {
+        grid-template-columns: 1fr; /* Stack footer sections */
+        gap: 30px;
+    }
+    .footer {
+        padding: 40px 20px 20px;
+    }
+    .footer-brand {
+        font-size: 60px;
+    }
+}
+
+/* Small Mobile Screens (max-width: 500px) */
+@media (max-width: 500px) {
+    .logo h1 {
+        font-size: 24px;
+    }
+    .logo img {
+        width: 40px;
+    }
+
+    /* Room Container */
+    .room-image img {
+        height: 250px;
+    }
+    .room-details h2 {
+        font-size: 26px;
+    }
+    .room-description {
+        font-size: 16px !important;
+    }
+
+    /* Map */
+    #map {
+        height: 250px;
+    }
+
+    /* Testimonial Slider */
+    .testimonial-slider-section .section-title {
+        font-size: 32px;
+    }
+    .testimonial-slider-section h2 {
+        font-size: 22px;
+    }
+    .testimonial-text {
+        font-size: 17px !important;
+    }
+    .reviewer-avatar-lg {
+        width: 90px;
+        height: 90px;
+    }
+    .quote-icon {
+        font-size: 26px;
+        padding: 4px 10px;
+    }
+    .review-author-name {
+        font-size: 15px !important;
+        padding: 4px 12px;
+    }
+
+    /* Footer */
+    .footer-brand {
+        font-size: 40px;
+    }
+}
+
+/* Footer Styles */
+.footer {
+    background: linear-gradient(to top, rgba(199, 42, 81, 0.7), rgba(212, 44, 75, 0.9));
+    color: #fff;
+    padding: 60px 80px 40px;
+    font-family: 'Cormorant Upright', serif;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 40px;
+}
+
+.footer h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.footer-newsletter p {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.footer-newsletter input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: none;
+    outline: none;
+}
+
+.footer-newsletter label {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.footer-newsletter button {
+    background: #fff;
+    color: #3b0d0d;
+    padding: 10px 25px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 600;
+}
+
+.footer-newsletter button:hover {
+    background: #7c192b;
+    color: #fff;
+}
+
+.footer-info p {
+    margin: 5px 0;
+    font-size: 15px;
+}
+
+.footer-follow ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+}
+
+.footer-follow ul li {
+    margin-bottom: 8px;
+}
+
+.footer-follow ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-follow ul li a:hover {
+    color: #c9330f;
+}
+
+.footer-links a {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #ccc;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+.footer-brand {
+    text-align: center;
+    font-family: "MonteCarlo", cursive;
+    font-size: 110px;
+    font-weight: normal;
+    color: #fff;
+    margin: 30px 0 10px 0;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 14px;
+    color: #ddd;
+    margin-bottom: 10px;
+}
+
+.footer-bottom p {
+    margin: 0;
+}
+
+/* Responsive styles for Header and Footer */
+@media (max-width: 992px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 900px) {
+    .footer-brand {
+        font-size: 70px;
+    }
+}
+.footer {
+    background: linear-gradient(to top, rgba(199, 42, 81, 0.7), rgba(212, 44, 75, 0.9));
+    color: #fff;
+    padding: 60px 80px 40px;
+    font-family: 'Cormorant Upright', serif;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 40px;
+}
+
+.footer h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.footer-newsletter p {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.footer-newsletter input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: none;
+    outline: none;
+}
+
+.footer-newsletter label {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.footer-newsletter button {
+    background: #fff;
+    color: #3b0d0d;
+    padding: 10px 25px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 600;
+}
+
+.footer-newsletter button:hover {
+    background: #7c192b;
+    color: #fff;
+}
+
+.footer-info p {
+    margin: 5px 0;
+    font-size: 15px;
+}
+
+.footer-follow ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+}
+
+.footer-follow ul li {
+    margin-bottom: 8px;
+}
+
+.footer-follow ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-follow ul li a:hover {
+    color: #c9330f;
+}
+
+.footer-links a {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #ccc;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+.footer-brand {
+    text-align: center;
+    font-family: "MonteCarlo", cursive;
+    font-size: 110px;
+    font-weight: normal;
+    color: #fff;
+    margin: 30px 0 10px 0;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 14px;
+    color: #ddd;
+    margin-bottom: 10px;
+}
+
+.footer-bottom p {
+    margin: 0;
+}
+ /* Responsive */
+@media (max-width: 900px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-brand {
+    font-size: 50px;
+  }
+}
+/* ================================================= */
+/* 4. REVIEW SECTION */
+/* ================================================= */
+
+.review-section {
+    max-width: 1000px; /* यह सुनिश्चित करता है कि पूरा फॉर्म चौड़ा है */
+    margin: 50px auto;
+    padding: 30px;
+    background: cornsilk;
+    border-radius: 12px;
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.review-form .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+    color: rgb(161, 24, 72);
+}
+
+.review-form .form-range {
+    width: 100%; 
+    margin-bottom: 10px; 
+    color: rgb(161, 24, 72);
+}
+
+.review-form label {
+    font-size: 16px;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    color: rgb(161, 24, 72);
+}
+
+.rating-scale {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #555;
+    width: 100%; 
+    padding: 0 5px; 
+    color: rgb(161, 24, 72);
+}
+/* Sidebar Styling */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #fbf7f7;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.4s ease;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    padding-top: 80px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #c9330f;
+    padding: 15px 25px;
+    font-size: 18px;
+    font-family: 'Cormorant Upright', serif;
+    border-bottom: 1px solid rgba(201, 51, 15, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover {
+    background-color: rgba(201, 51, 15, 0.1);
+}
+
+.sidebar.active {
+    right: 0;
+}

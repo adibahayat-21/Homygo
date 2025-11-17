@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Homygo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MonteCarlo&family=Cormorant+Upright:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/home.css">
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const elements = document.querySelectorAll('.reveal-text');
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        typeText(entry.target);
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            elements.forEach(el => observer.observe(el));
+        } else {
+            elements.forEach(el => typeText(el));
+        }
+
+        function typeText(el) {
+            const text = el.getAttribute('data-text');
+            el.textContent = "";
+            let i = 0;
+            const speed = 50;
+            function typing() {
+                if (i < text.length) {
+                    el.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typing, speed);
+                } else {
+                    el.style.borderRight = "none";
+                }
+            }
+            typing();
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const sidebarToggle = document.querySelector('.sidebar-toggle');
+        const sidebar = document.querySelector('.sidebar');
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+        document.addEventListener('click', (event) => {
+            if (!sidebar.contains(event.target) && !sidebarToggle.contains(event.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+    });
+</script>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="/aircraft.png" alt="Logo">
+            <h1>The HomyGo</h1>
+        </div>
+        <nav class="desktop-nav">
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/listings">Listings</a></li>
+                <li><a href="/about">About</a></li>
+               
+            </ul>
+        </nav>
+        
+        <div class="header-actions">
+            <a href="/listings" class="cta">Book Your Stay</a>
+            <% if(!check_user) { %>
+                <a href="/login" class="header-auth-btn">Login</a>
+                <a href="/signup" class="header-auth-btn">Signup</a>
+            <% } else { %>
+                <a href="/logout" class="header-auth-btn">Logout</a>
+            <% } %>
+        </div>
+
+        <i class="fa-solid fa-bars sidebar-toggle"></i>
+    </header>
+
+    <div class="sidebar">
+        <a href="/home">Home</a>
+        <a href="/listings">Listings</a>
+        <a href="/about">About</a>
+      
+        <% if(!check_user) { %>
+            <a href="/login">Login</a>
+            <a href="/signup">Signup</a>
+        <% } else { %>
+            <a href="/logout">Logout</a>
+        <% } %>
+    </div>
+
+     <% if (success_msg && success_msg.length>0) { %>
+  <div id="flashMsg" role="alert"
+       style="
+         position: fixed;
+         top: 20px;
+         left: 50%;
+         transform: translateX(-50%);
+         z-index: 9999;
+         display: flex;
+         align-items: center;
+         gap: 12px;
+         max-width: 920px;
+         width: calc(100% - 40px);
+         padding: 12px 16px;
+         border-radius: 12px;
+         background: linear-gradient(90deg, rgba(219, 28, 66, 0.95), rgba(227, 58, 83, 0.95));
+         color: white;
+         box-shadow: 0 8px 30px rgba(12, 20, 40, 0.35);
+         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+         font-size: 15px;
+         line-height: 1.2;
+         backdrop-filter: blur(6px);
+         transition: transform 220ms ease, opacity 220ms ease;
+       ">
+    <!-- Icon -->
+    <div style="
+         min-width:36px;
+         height:36px;
+         border-radius: 9px;
+         display:flex;
+         align-items:center;
+         justify-content:center;
+         background: rgba(255,255,255,0.12);
+         font-weight:700;
+         font-size:18px;
+       ">
+      ✓
+    </div>
+
+    <!-- Message text -->
+    <div style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right:8px;">
+      <%= success_msg[0] %>
+    </div>
+
+    <!-- Close button -->
+    <button aria-label="Close notification" onclick="closeFlash()" style="
+        border: none;
+        background: transparent;
+        color: rgba(255,255,255,0.95);
+        font-size: 16px;
+        padding: 6px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 120ms ease, background 120ms ease;
+      " onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='transparent'">
+      ✕
+    </button>
+  </div>
+  
+  <script>
+    (function() {
+      var el = document.getElementById('flashMsg');
+      if (!el) return;
+
+      var timer = setTimeout(function () {
+        el.style.opacity = '0';
+        el.style.transform = 'translateX(-50%) translateY(-10px) scale(0.985)';
+        setTimeout(() => { if(el.parentNode) el.parentNode.removeChild(el); }, 220);
+      }, 4000);
+
+      window.closeFlash = function() {
+        clearTimeout(timer);
+        el.style.opacity = '0';
+        el.style.transform = 'translateX(-50%) translateY(-10px) scale(0.985)';
+        setTimeout(() => { if(el.parentNode) el.parentNode.removeChild(el); }, 160);
+      };
+    })();
+  </script>
+<% } %>
+
+ <% if (error_msg && error_msg.length>0) { %>
+  <div id="flashMsg" role="alert"
+       style="
+         position: fixed;
+         top: 20px;
+         left: 50%;
+         transform: translateX(-50%);
+         z-index: 9999;
+         display: flex;
+         align-items: center;
+         gap: 12px;
+         max-width: 920px;
+         width: calc(100% - 40px);
+         padding: 12px 16px;
+         border-radius: 12px;
+         background: linear-gradient(90deg,rgba(55, 53, 53, 0.95),rgba(158, 156, 159, 0.95));
+         color: white;
+         box-shadow: 0 8px 30px rgba(12, 20, 40, 0.35);
+         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+         font-size: 15px;
+         line-height: 1.2;
+         backdrop-filter: blur(6px);
+         transition: transform 220ms ease, opacity 220ms ease;
+       ">
+    <!-- Icon -->
+    <div style="
+         min-width:36px;
+         height:36px;
+         border-radius: 9px;
+         display:flex;
+         align-items:center;
+         justify-content:center;
+         background: rgba(255,255,255,0.12);
+         font-weight:700;
+         font-size:18px;
+       ">
+       ✕
+    </div>
+
+    <!-- Message text -->
+    <div style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right:8px;">
+      <%= error_msg[0] %>
+    </div>
+
+    <!-- Close button -->
+    <button aria-label="Close notification" onclick="closeFlash()" style="
+        border: none;
+        background: transparent;
+        color: rgba(255,255,255,0.95);
+        font-size: 16px;
+        padding: 6px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 120ms ease, background 120ms ease;
+      " onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='transparent'">
+      ✕
+    </button>
+  </div>
+  
+  <script>
+    (function() {
+      var el = document.getElementById('flashMsg');
+      if (!el) return;
+
+      var timer = setTimeout(function () {
+        el.style.opacity = '0';
+        el.style.transform = 'translateX(-50%) translateY(-10px) scale(0.985)';
+        setTimeout(() => { if(el.parentNode) el.parentNode.removeChild(el); }, 220);
+      }, 4000);
+
+      window.closeFlash = function() {
+        clearTimeout(timer);
+        el.style.opacity = '0';
+        el.style.transform = 'translateX(-50%) translateY(-10px) scale(0.985)';
+        setTimeout(() => { if(el.parentNode) el.parentNode.removeChild(el); }, 160);
+      };
+    })();
+  </script>
+<% } %>
+
+    <h1 class="reed-title">The Homygo</h1>
+    <section class="photo-gallery">
+        <img src="/oswald-elsaboath-7EDZ1fxhgJQ-unsplash.jpg" alt="Room 1" class="gallery-image-1">
+        <img src="/upgraded-points-KVym2PAn1gA-unsplash.jpg" alt="Room 3" class="gallery-image-2">
+        <img src="/frames-for-your-heart-zSG-kd-L6vw-unsplash.jpg" alt="Room 2" class="gallery-image-3">
+    </section>
+    <section class="section-heading">
+        <h2>Urban Boutique Hotel</h2>
+        <h3>Escape the Ordinary</h3>
+    </section>
+
+    <section class="text-section">
+        <div class="text">
+            <div>
+                <p>
+                    Nestled in the heart of this vibrant city, our hotel is a sanctuary of peace and luxury, 
+                    complete with a rooftop garden and bar. Reconnect with yourself amidst the city's pulse.
+                </p>
+                <a href="/about" class="about-btn">Get a Closer Look</a>
+            </div>
+            <br>
+            <br>
+            <img src="/gerson-repreza-CepDpEiALqM-unsplash.jpg" class="text-content-image">
+        </div>
+        <div class="text-image">
+            <img src="/pasqualino-capobianco-yPfpzdcnv0k-unsplash.jpg" alt="Hotel interior">
+        </div>
+    </section>
+    <section class="feature-section">
+        <div class="feature-image">
+            <img src="/susan-flynn-1-wQrKkKevc-unsplash.jpg" alt="Pool & Rooftop">
+        </div>
+        <div class="feature-text">
+            <h2>Pool & Rooftop</h2>
+            <h3>Find your serenity in the heart of the city</h3>
+            <p>
+                Use this space to promote the business, its products or its services. 
+                Help people become familiar with the business and its offerings, 
+                creating a sense of connection and trust. Focus on what makes 
+                your stay unique and special for your guests.
+            </p>
+            <br>
+            <br>
+            <div>
+                <a href="/listings" class="cta">Book Now</a>
+            </div>
+        </div>
+        <br>
+    </section>
+    <section class="culinary-section">
+        <div class="culinary-content">
+            <h2>Culinary Experience</h2>
+            <h3>Taste the City, savor the Moment</h3>
+            <p>
+                Use this space to promote the business, its products or its services. 
+                Help people become familiar with the business and its offerings, 
+                creating a sense of connection and trust. Focus on what makes 
+                the business unique and how users can benefit from choosing it.
+            </p>
+            <a href="/listings" class="culinary-btn">Book Now</a>
+
+            <div class="culinary-extra-img-container">
+                <img src="/artem-beliaikin-TSS-1aqoRXE-unsplash.jpg" alt="Extra Culinary" class="reveal-img">
+                <div class="reveal-text" data-text="A feast for the senses, crafted with love."></div>
+                <br>
+                <span class="byline">― Culinary Magazine</span>
+            </div>
+            <div class="culinary-extra-img-container2">
+                <div class="reveal-text reveal-text-2" data-text="“Fresh, flavorful, and fantastic!”"></div>
+                <br>
+                <span class="byline byline-2">― RAD Magazine</span>
+                <div>
+                    <img src="/drew-dau-bWijQI4v0dM-unsplash.jpg" alt="Extra Culinary" class="reveal-img reveal-img-2">
+                </div>
+            </div>
+        </div>
+        <div class="culinary-image">
+            <img src="/stephanie-mccabe-U3zasaqWD-I-unsplash.jpg" alt="Culinary Experience">
+        </div>
+    </section>
+    <br>
+    <h2 class="instagram-heading">Follow Us On Instagram</h2>
+    <div class="instagram-gallery">
+        <img src="/bas-van-den-eijkhof-_6leEoWt7aI-unsplash.jpg" alt="Instagram 1">
+        <img src="/saad-khan-425b2PhNuHA-unsplash.jpg" alt="Instagram 2">
+        <img src="/point3d-commercial-imaging-ltd-oR1M4Bl1PUU-unsplash.jpg" alt="Instagram 3">
+    </div>
+    <br>
+    <div class="instagram-cta">
+        <a href="/about" class="cta">View All</a>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-newsletter">
+                <h2>Newsletter</h2>
+                <p>Sign up to receive updates and special offers.</p>
+                <form>
+                    <input type="email" placeholder="Email *" required>
+                    <label>
+                        <input type="checkbox"> Yes, subscribe me to your newsletter.
+                    </label>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <div class="footer-info">
+                <div>
+                    <h2>Address</h2>
+                    <p>500 Terry Francine St.<br>San Francisco, CA 94158</p>
+                </div>
+                <div>
+                    <h2>Contact</h2>
+                    <p>info@mysite.com<br>123-456-7890</p>
+                </div>
+            </div>
+            <div class="footer-follow">
+                <h2>Follow</h2>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">TikTok</a></li>
+                </ul>
+                <div class="footer-links">
+                    <a href="#">Terms & Conditions</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Accessibility Statement</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-brand">
+            The Homygo
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 by The Homygo. Built with ❤</p>
+        </div>
+    </footer>
+    <script src="/js/chat.js"></script>
+</body>
+</html>

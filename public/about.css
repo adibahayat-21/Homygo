@@ -1,0 +1,754 @@
+/* General and Global Styles */
+body {
+    font-family: 'Cormorant Upright', serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fbf7f7; /* Light background for consistency */
+    color: #3d1c1a; /* A darker shade for text */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Header, already styled in home.css, but including it here for a standalone file */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: #ffeaea;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+}
+
+header .logo img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+header .logo h1 {
+    font-family: "MonteCarlo", cursive;
+    font-size: 30px;
+    color: #c90f41;
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #ac2458;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    border-bottom: 2px solid #c53a72;
+}
+
+.cta {
+    border: 1px solid #c82150;
+    padding: 8px 20px;
+    font-family: 'Cormorant Upright', serif;
+    font-size: 16px;
+    color: #c03452;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.cta:hover {
+    background-color: #be2f66;
+    color: #fff;
+}
+
+/* Main Content Styles */
+main {
+    padding: 0;
+}
+
+.section-heading {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 42px;
+    font-weight: 600;
+    color: #b92b4f;
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+.section-subtitle, .about-subtitle, .mission-subtitle {
+    text-align: center;
+    font-size: 20px;
+    color: #b1395b;
+    margin-bottom: 40px;
+}
+
+/* About Hero Section */
+/* .about-hero {
+    background-color: #fffaf8;
+    padding: 80px 50px 60px;
+    text-align: center;
+}
+
+.about-title {
+    font-family: "MonteCarlo", cursive;
+    font-size: 100px;
+    font-weight: 400;
+    color: #c9330f;
+    margin: 0;
+}
+
+.about-subtitle {
+    max-width: 800px;
+    margin: 20px auto 0;
+    line-height: 1.6;
+} */
+
+/* About Hero Section */
+.about-hero {
+    position: relative; /* Video ko iske andar position karne ke liye */
+    height: 60vh; /* Section ki height set karein */
+    display: flex; /* Content ko center karne ke liye */
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Video ko container se bahar na jaane dein */
+    text-align: center;
+}
+
+/* Background video styling */
+.background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Video ko poore container mein fit kare */
+    z-index: -1; /* Video ko content ke piche bhej dein */
+}
+
+/* Background overlay styling */
+.about-hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 105, 180, 0.2); /* Pinkish transparent overlay */
+    z-index: 0;
+}
+
+/* Text content container */
+.about-hero-content {
+    position: relative;
+    z-index: 1; /* Text ko video aur overlay ke upar laaye */
+    color: #fff; /* Text color ko white ya light karein */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Text ko saaf dikhane ke liye shadow */
+    padding: 20px;
+}
+
+.about-title {
+    font-family: "MonteCarlo", cursive;
+    font-size: 100px;
+    font-weight: 400;
+    color: #fff; /* Title color ko white karein */
+    margin: 0;
+}
+
+.about-subtitle {
+    max-width: 800px;
+    margin: 20px auto 0;
+    line-height: 1.6;
+    color: #fff; /* Subtitle color ko white karein */
+}
+
+/* Story Section */
+.story-section {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    padding: 80px 100px;
+    background-color: #f9f6f4;
+}
+
+.story-section .text-content {
+    flex: 1;
+}
+
+.story-section .image-content {
+    flex: 1;
+}
+
+.story-section img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.story-section p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #c43066;
+}
+
+/* Our Mission Section */
+.mission-section {
+    padding: 80px 100px;
+    text-align: center;
+    background-color: #fffaf8;
+}
+
+.mission-cards {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.mission-cards .card {
+    background-color: #f8e9e0;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    max-width: 300px;
+    transition: transform 0.3s ease;
+}
+
+.mission-cards .card:hover {
+    transform: translateY(-10px);
+}
+
+/* New CSS for the icon circle and alignment */
+/* New CSS for the icon circle and alignment */
+.icon-circle {
+    width: 60px; /* Adjust size of the circle */
+    height: 60px; /* Adjust size of the circle */
+    background-color: rgb(190, 40, 72); /* Red/Maroon background */
+    border-radius: 50%; /* Makes it a perfect circle */
+    display: flex; /* Use flexbox for centering content */
+    align-items: center; /* This centers the icon vertically */
+    justify-content: center; /* This centers the icon horizontally */
+    margin: 0 auto 20px auto; /* Center the circle and add margin below it */
+}
+
+.card-icon {
+    font-size: 30px; /* Adjust icon size as needed */
+    color: white; /* White icon color */
+}
+
+.card-title {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: #bd2f50;
+    margin: 0 0 10px;
+}
+
+.mission-section p {
+    font-size: 16px;
+    color: #e1387f;
+}
+
+/* Meet Our Team Section */
+.team-section {
+    padding: 80px 100px;
+    /* background-color: #f9f6f4; */
+        background-color: #ffece0;
+}
+
+.team-content {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    margin-top: 50px;
+}
+
+.team-content .image-content {
+    flex: 1;
+}
+
+.team-content img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.team-content .text-content {
+    flex: 1;
+}
+
+.team-content p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #a13153;
+}
+
+/* Recognition & Awards Section */
+.awards-section {
+    padding: 80px 100px;
+    background-color: #fffaf8;
+}
+
+.awards-content {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    margin-top: 50px;
+}
+
+.awards-content .image-content {
+    flex: 1;
+}
+
+.awards-content img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.awards-list-container {
+    flex: 1;
+}
+
+.awards-subheading {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: #ba275d;
+    margin-bottom: 20px;
+}
+
+.awards-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.awards-list li {
+    font-size: 18px;
+    line-height: 2.2;
+    border-bottom: 1px solid #e0d9d6;
+    color: #c12959;
+}
+
+.awards-list li:last-child {
+    border-bottom: none;
+}
+
+/* Call to Action Section */
+/* .cta-section {
+    background-color: #c9330f;
+    color: #fff;
+    text-align: center;
+    padding: 80px 50px;
+} */
+
+.cta-section {
+    /* Instead of background-color, use background-image */
+    background-image: url('/tulip-holiday-background-illustration-ai-generative-free-photo.jpg'); 
+    background-size: cover; /* This makes the image cover the entire section */
+    background-position: center; /* This centers the image within the section */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    
+    color: #b62547;
+    text-align: center;
+    padding: 80px 50px;
+    opacity: 0.8;
+}
+
+.cta-heading {
+    font-family: "MonteCarlo", cursive;
+    font-size: 60px;
+    font-weight: 400;
+    margin: 0 0 20px;
+}
+
+.cta-text {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 20px;
+    max-width: 700px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.cta-btn {
+    padding: 12px 28px;
+    font-size: 18px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.cta-btn.primary {
+    background-color: #fff;
+    color: #c90f4d;
+}
+
+.cta-btn.primary:hover {
+    background-color: transparent;
+    color: #bd405d;
+}
+
+.cta-btn.secondary {
+    background-color: transparent;
+    color: #cf3156;
+}
+
+.cta-btn.secondary:hover {
+    background-color: #fff;
+    color: #c32245;
+}
+
+/* Footer, same as home.css */
+.footer {
+      background: linear-gradient(to top, rgba(199, 42, 81, 0.7), rgba(212, 44, 75, 0.9));
+  color: #fff;
+  padding: 60px 80px 40px;
+  font-family: 'Cormorant Upright', serif;
+}
+
+/* Grid Layout for sections */
+.footer-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 40px;
+}
+
+.footer h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.footer-newsletter p {
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.footer-newsletter input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: none;
+  outline: none;
+}
+
+.footer-newsletter label {
+  font-size: 14px;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.footer-newsletter button {
+  background: #fff;
+  color: #3b0d0d;
+  padding: 10px 25px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+.footer-newsletter button:hover {
+  background: #7c192b;
+  color: #fff;
+}
+
+.footer-info p {
+  margin: 5px 0;
+  font-size: 15px;
+}
+
+.footer-follow ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+.footer-follow ul li {
+  margin-bottom: 8px;
+}
+
+.footer-follow ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-follow ul li a:hover {
+  color: #c9330f;
+}
+
+.footer-links a {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #ccc;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+/* Big decorative brand text */
+.footer-brand {
+  text-align: center;
+  font-family: "MonteCarlo", cursive; /* linked cursive font */
+  font-size: 110px; /* bada stylish font */
+  font-weight: normal;
+  color: #fff;
+  margin: 30px 0 10px 0;
+}
+
+/* Copyright text */
+.footer-bottom {
+  text-align: center;
+  font-size: 14px;
+  color: #ddd;
+  margin-bottom: 10px;
+}
+
+.footer-bottom p {
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-brand {
+    font-size: 50px;
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .story-section, .team-content, .awards-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .awards-list-container {
+        margin-top: 40px;
+    }
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-title {
+        font-size: 60px;
+    }
+    .mission-cards {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .cta-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+/* Sidebar Toggle Icon Styling */
+.sidebar-toggle {
+    font-size: 24px;
+    color: #b3224b;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -250px; /* Isse sidebar screen ke bahar chupa rahega */
+    width: 250px;
+    height: 100%;
+    background-color: #fbf7f7;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.4s ease;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    padding-top: 80px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #ac234c;
+    padding: 15px 25px;
+    font-size: 18px;
+    font-family: 'Cormorant Upright', serif;
+    border-bottom: 1px solid rgba(201, 51, 15, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover {
+    background-color: rgba(201, 51, 15, 0.1);
+}
+
+/* JavaScript ke through yeh class add hogi */
+.sidebar.active {
+    right: 0;
+}
+
+/* Header styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: #fbf7f7;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+}
+
+header .logo img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+header .logo h1 {
+    font-family: "MonteCarlo", cursive;
+    font-size: 30px;
+    font-weight: 600;
+    color: #c90f41;
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 18px;
+    color: #c90f44;
+}
+
+/* Header action buttons */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cta {
+    border: 1px solid #e12963;
+    padding: 8px 20px;
+    font-family: 'Cormorant Upright', serif;
+    font-size: 16px;
+    color: #bc285f;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.cta:hover {
+    background-color: #ca2c6b;
+    color: #f3ecec;
+}
+
+.header-auth-btn {
+    text-decoration: none;
+    color: #9f193c;
+    font-family: 'Cormorant Upright', serif;
+    font-size: 16px;
+    padding: 8px;
+    transition: color 0.3s ease;
+}
+
+.header-auth-btn:hover {
+    color: #be2469;
+}
+
+/* Sidebar Toggle Icon Styling */
+.sidebar-toggle {
+    font-size: 24px;
+    color: #bd1b59;
+    cursor: pointer;
+    display: none; /* Hidden by default on desktop */
+}
+
+/* Sidebar Styling */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #fbf7f7;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.4s ease;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    padding-top: 80px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #b4134b;
+    padding: 15px 25px;
+    font-size: 18px;
+    font-family: 'Cormorant Upright', serif;
+    border-bottom: 1px solid rgba(201, 51, 15, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover {
+    background-color: rgba(201, 51, 15, 0.1);
+}
+
+.sidebar.active {
+    right: 0;
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 20px;
+    }
+    header .desktop-nav {
+        display: none;
+    }
+    .header-actions {
+        display: none; /* Hiding the entire button group on mobile */
+    }
+    .sidebar-toggle {
+        display: block;
+    }
+  }

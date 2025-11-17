@@ -1,0 +1,66 @@
+1️⃣ Asynchronous Functions
+
+Ye functions time lete hain execute hone me (jaise DB query, file read).
+
+Ye Promise return karte hain, matlab kuch na kuch response future me milega.
+
+async function getData() {
+    let data = await listingModel.find({});
+    return data;
+}
+
+2️⃣ Handling Asynchronous Functions
+
+async/await → modern, readable syntax
+
+try {
+   let data = await getData();
+} catch(err) {
+   console.log(err);
+}
+
+
+.then().catch() → traditional Promise handling
+
+getData().then(data => {
+   console.log(data);
+}).catch(err => {
+   console.log(err);
+});
+
+3️⃣ Error Handling Middleware
+
+try/catch → har async route me likhna repetitive hota hai.
+
+wrapAsync → ek helper jo automatically next(err) me error pass kar deta hai, taaki error handling middleware handle kare.
+
+app.get("/listings", wrapAsync(async (req,res)=>{
+    const data = await listingModel.find({});
+    res.render("listings", {data});
+}));
+
+4️⃣ Custom Error (ExpressError)
+
+Agar tum status code aur custom message bhejna chahte ho:
+
+if(!listing){
+   throw new ExpressError(404, "Listing not found");
+}
+
+
+Fir error handling middleware me use handle karke user ko proper response bhej sakte ho:
+
+app.use((err,req,res,next)=>{
+    const { statusCode = 500, message = "Something went wrong" } = err;
+    res.status(statusCode).send(message);
+});
+
+✅ Short Summary
+
+Async functions → promise return karte hain.
+
+Handle karne ke liye async/await ya .then().catch().
+
+Errors handle karne ke liye try/catch ya wrapAsync.
+
+Status code/message bhejne ke liye ExpressError use karte hain.

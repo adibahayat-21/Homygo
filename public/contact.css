@@ -1,0 +1,467 @@
+/* --- Global Styles --- */
+:root {
+    --color-primary: #B23A5B; /* A deep pink/maroon for buttons, active states */
+    --color-secondary: #FFD2D7; /* A light pink/cream for backgrounds */
+    --color-text-dark: #333333;
+    --color-text-light: #F8F8F8;
+    --color-footer-bg: #E96479; /* Footer background color (deep rose) */
+    --color-footer-text: #F8F8F8;
+    --color-card-bg: #FFFFFF;
+    --color-yellowish: #FFFBE6; /* Light yellowish for card backgrounds (subtle) */
+    --color-icon-bg-primary: #B23A5B; /* Main icon background */
+    --color-icon-bg-secondary: #FFF3C4; /* Card icon background */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Montserrat', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--color-text-dark);
+    line-height: 1.6;
+    background-color: var(--color-secondary);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    margin-bottom: 0.5em;
+}
+
+/* --- Navbar (Based on image_d1be9f.png) --- */
+.navbar-container {
+    background-color: #F8F8F8; /* Light background */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo img {
+    height: 40px; /* Adjust as per actual logo size */
+    margin-right: 10px;
+    /* Styles for the orange/pink gradient logo in image_d1be9f.png */
+}
+
+.logo-text {
+    font-family: var(--font-heading);
+    font-size: 1.8em;
+    font-weight: 700;
+    /* Use a color similar to the logo text in the image */
+    color: var(--color-primary); 
+}
+
+.navbar-links a {
+    margin: 0 15px;
+    color: var(--color-primary);
+    font-weight: 500;
+    padding: 5px 0;
+    transition: color 0.3s;
+}
+
+.navbar-links a:hover,
+.navbar-links a.active {
+    color: var(--color-primary); /* Keeping it the same as the link color */
+    border-bottom: 2px solid var(--color-primary);
+}
+
+.navbar-actions .btn-book {
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    padding: 8px 15px;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar-actions .btn-book:hover {
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+}
+
+.navbar-actions .btn-logout {
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+
+/* --- Hero Section (Get in Touch) --- */
+.hero-section {
+    background-image: url('path/to/hero_background.jpg'); /* Replace with the actual image path */
+    background-size: cover;
+    background-position: center;
+    height: 60vh; /* Adjust height as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF; /* White text on background image */
+}
+
+.hero-content {
+    background-color: rgba(0, 0, 0, 0.1); /* Subtle overlay for readability */
+    padding: 30px;
+}
+
+.hero-title {
+    font-size: 3.5em;
+    color: #FFFFFF;
+}
+
+.hero-divider {
+    width: 80px;
+    height: 3px;
+    background-color: #FFC0C7; /* Light pink/gold divider from image */
+    margin: 10px auto 15px;
+}
+
+.hero-subtitle {
+    font-size: 1.2em;
+    font-weight: 400;
+    color: #FFFFFF;
+}
+
+/* --- Contact Form Section (Send Us a Message) --- */
+.contact-form-section {
+    padding: 60px 5%;
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-secondary);
+}
+
+.form-container {
+    background-color: #FFFFFF;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-header h2 {
+    font-size: 2.5em;
+    color: var(--color-text-dark);
+}
+
+.form-header p {
+    color: #888;
+    margin-top: 5px;
+}
+
+.contact-form .form-group {
+    margin-bottom: 20px;
+}
+
+.contact-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--color-primary);
+}
+
+.contact-form label i {
+    margin-right: 8px;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #E0E0E0;
+    border-radius: 10px;
+    font-size: 1em;
+    font-family: var(--font-body);
+    background-color: #F8F8F8;
+}
+
+.contact-form textarea {
+    resize: vertical;
+}
+
+.contact-form .btn-submit {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.contact-form .btn-submit:hover {
+    background-color: #A03350; /* Darker shade */
+}
+
+.contact-form .btn-submit i {
+    margin-right: 10px;
+}
+
+/* --- Reach Us Section (Other Ways to Reach Us) --- */
+.reach-us-section {
+    text-align: center;
+    padding: 60px 5%;
+    background-color: var(--color-secondary);
+}
+
+.section-title {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.section-subtitle {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.reach-us-cards {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.reach-us-cards .card {
+    background-color: var(--color-card-bg);
+    border-radius: 15px;
+    padding: 30px 20px;
+    width: 300px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: var(--color-yellowish); /* Subtle yellowish background */
+}
+
+.card-icon {
+    background-color: var(--color-icon-bg-secondary);
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    border: 3px solid #FFD8A8; /* Border for the icon background */
+}
+
+.card-icon i {
+    font-size: 2em;
+    color: var(--color-primary);
+}
+
+.reach-us-cards h3 {
+    color: var(--color-text-dark);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.contact-detail-line {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 4px;
+}
+
+/* --- Find Us Here Section --- */
+.find-us-section {
+    text-align: center;
+    padding: 60px 5%;
+    background-color: var(--color-secondary);
+}
+
+.headquarters-box {
+    background-color: #FFFFFF;
+    padding: 50px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 30px auto 0;
+}
+
+.headquarters-icon {
+    background-color: var(--color-icon-bg-primary);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px;
+}
+
+.headquarters-icon i {
+    font-size: 2.5em;
+    color: #FFFFFF;
+}
+
+.headquarters-title {
+    font-size: 1.8em;
+    color: var(--color-text-dark);
+}
+
+.headquarters-map-info {
+    color: #888;
+    margin-top: 5px;
+}
+
+/* --- Footer (Based on image_d1bf5d.jpg) --- */
+.footer-container {
+    background-color: var(--color-footer-bg);
+    color: var(--color-footer-text);
+    padding: 60px 5% 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-main-content {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 250px;
+    margin: 0 20px;
+}
+
+.footer-column h4 {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.footer-column p {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+}
+
+.newsletter-form input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 0.9em;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.btn-submit-newsletter {
+    background-color: #FFFFFF;
+    color: var(--color-footer-bg);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.btn-submit-newsletter:hover {
+    opacity: 0.9;
+}
+
+.follow-links ul {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.follow-links li {
+    margin-bottom: 5px;
+}
+
+.policy-links {
+    margin-top: 20px;
+}
+
+.policy-links a {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.8);
+    transition: color 0.3s;
+}
+
+.policy-links a:hover {
+    color: #FFFFFF;
+}
+
+.footer-branding {
+    text-align: center;
+    padding-top: 30px;
+}
+
+.branding-text {
+    font-family: var(--font-heading);
+    font-size: 4em;
+    color: rgba(255, 255, 255, 0.7); /* Lighter color for the large font text */
+    font-weight: 400;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1024px) {
+    .navbar-links {
+        display: none; /* Hide main links on smaller screens for simplicity */
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5em;
+    }
+
+    .footer-main-content {
+        flex-direction: column;
+    }
+
+    .footer-column {
+        margin: 20px 0;
+        min-width: unset;
+    }
+
+    .branding-text {
+        font-size: 3em;
+    }
+
+    .reach-us-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+}

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= data.title %> | The HomyGo</title>
+    <link href="https://fonts.googleapis.com/css2?family=MonteCarlo&family=Cormorant+Upright:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/show.css">
+</head>
+<body>
+    
+    <header>
+        <div class="logo">
+            <img src="/aircraft.png" alt="Logo">
+            <h1>The HomyGo</h1>
+        </div>
+        <nav class="desktop-nav">
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/listings">Listings</a></li>
+                <li><a href="/about">About</a></li>
+               
+            </ul>
+        </nav>
+        
+        <div class="header-actions">
+            <a href="/listings" class="cta">Book Your Stay</a>
+            <% if(!check_user) { %>
+                <a href="/login" class="header-auth-btn">Login</a>
+                <a href="/signup" class="header-auth-btn">Signup</a>
+            <% } else { %>
+                <a href="/logout" class="header-auth-btn">Logout</a>
+            <% } %>
+        </div>
+
+        <i class="fa-solid fa-bars sidebar-toggle"></i>
+    </header>
+
+    <div class="sidebar">
+        <a href="/home">Home</a>
+        <a href="/listings">Listings</a>
+        <a href="/about">About</a>
+      
+        <% if(!check_user) { %>
+            <a href="/login">Login</a>
+            <a href="/signup">Signup</a>
+        <% } else { %>
+            <a href="/logout">Logout</a>
+        <% } %>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const sidebarToggle = document.querySelector('.sidebar-toggle');
+        const sidebar = document.querySelector('.sidebar');
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+        document.addEventListener('click', (event) => {
+            if (!sidebar.contains(event.target) && !sidebarToggle.contains(event.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+    });
+</script>
+
+<% if (success_msg && success_msg.length>0) { %>
+    <div id="flashMsg" role="alert" class="flash-success">
+        <div class="flash-icon">✓</div>
+        <div class="flash-text"><%= success_msg[0] %></div>
+        <button aria-label="Close notification" onclick="closeFlash()" class="flash-close-btn">✕</button>
+    </div>
+    <script>
+        (function() {
+          var el = document.getElementById('flashMsg');
+          if (!el) return;
+    
+          var timer = setTimeout(function () {
+            el.style.opacity = '0';
+            el.style.transform = 'translateX(-50%) translateY(-10px) scale(0.985)';
+            setTimeout(() => { if(el.parentNode) el.parentNode.removeChild(el); }, 220);
+          }, 4000);
+    
+          window.closeFlash = function() {
+            clearTimeout(timer);
+            el.style.opacity = '0';
+            el.style.transform = 'translateX(-50%) translateY(-10px) scale(0.985)';
+            setTimeout(() => { if(el.parentNode) el.parentNode.removeChild(el); }, 160);
+          };
+        })();
+      </script>
+<% } %>
+
+<% if (error_msg && error_msg.length>0) { %>
+    <div id="flashMsg" role="alert" class="flash-error">
+        <div class="flash-icon">✕</div>
+        <div class="flash-text"><%= error_msg[0] %></div>
+        <button aria-label="Close notification" onclick="closeFlash()" class="flash-close-btn">✕</button>
+    </div>
+    <script>
+        (function() {
+          var el = document.getElementById('flashMsg');
+          if (!el) return;
+    
+          var timer = setTimeout(function () {
+            el.style.opacity = '0';
+            el.style.transform = 'translateX(-50%) translateY(-10px) scale(0.985)';
+            setTimeout(() => { if(el.parentNode) el.parentNode.removeChild(el); }, 220);
+          }, 4000);
+    
+          window.closeFlash = function() {
+            clearTimeout(timer);
+            el.style.opacity = '0';
+            el.style.transform = 'translateX(-50%) translateY(-10px) scale(0.985)';
+            setTimeout(() => { if(el.parentNode) el.parentNode.removeChild(el); }, 160);
+          };
+        })();
+      </script>
+<% } %>
+
+    <div class="room-container">
+        
+        <div class="room-image">
+            <img src="<%= data.image.url %>" alt="<%= data.title %>">
+        </div>
+
+        <div class="room-details">
+            <h2><%= data.title %></h2>
+
+            <div class="room-overview">
+                <p><i class="fas fa-users"></i> 2 Adults max</p>
+                <p><i class="fas fa-ruler-combined"></i> 30 m²</p>
+            </div>
+
+            <div class="room-description">
+                <p><%= data.description %></p>
+            </div>
+
+            <div class="room-info">
+                <p class="price-text"><strong>Price:</strong> ₹<%= data.price %></p>
+                <p class="location-text"><strong><%= data.location %>, <%= data.country %></strong></p>
+                
+                <% if(data.owner) { %>
+                    <hr>
+                    <h3 class="hosted-by"><i>Hosted By "<%= data.owner.name %>"</i></h3>
+                <% } %>
+                
+            </div>
+            
+            <% if (check_user && data.owner && String(check_user._id) === String(data.owner._id)) { %>
+                <div class="room-actions">
+                    <a href="/listings/<%=data._id%>/edit" class="btn">Edit</a>
+                    <form method="post" action="/listings/<%=data._id%>?_method=DELETE" class="delete-form">
+                        <button class="btn delete">Delete</button>
+                    </form>
+                </div>
+            <% } %>
+
+            <a href="/listings" class="back-link">⬅ Back to Listings</a>
+        </div>
+    </div>
+
+    <section class="map-section">
+    <h3 class="map-heading">Explore Location on Map</h3>
+    <div class="map-wrapper">
+        <div id="map"></div>
+    </div>
+</section>
+
+<script>
+    // Ensure coordinates are numbers and valid
+    window.coordinates = <%= JSON.stringify(
+      (data.geometry && data.geometry.coordinates && data.geometry.coordinates.length === 2)
+        ? [Number(data.geometry.coordinates[0]), Number(data.geometry.coordinates[1])]
+        : [77.4126, 23.2599] // default Bhopal
+    ) %>;
+    console.log("Coordinates:", window.coordinates);
+</script>
+
+
+    <section class="review-section">
+    <h2>Leave a Review</h2>
+    <form class="review-form needs-validation" method="post" action="/listings/<%=data._id%>/reviews" novalidate>
+        <div class="form-group">
+            <label for="rating">Your Rating:</label>
+            <input type="range" class="form-range" min="1" max="5" step="1" id="rating" name="review[rating]" required>
+            <div class="rating-scale">
+                <span>😞 1</span>
+                <span>😐 3</span>
+                <span>😍 5</span>
+            </div>
+        </div>
+
+        <br>
+        <br>
+
+        <div class="form-group">
+            <label for="comment">Your Comment:</label>
+            <textarea id="comment" rows="4" placeholder="Write your review here..." name="review[comment]" required></textarea>
+            <div class="invalid-feedback custom-invalid-feedback">Please enter a comment.</div>
+        </div>
+
+        <button type="submit" class="btn review-btn">Submit Review</button>
+    </form>
+</section>
+
+<section class="testimonial-slider-section">
+    <h1 class="section-title">What Our Guests Say</h1>
+    <h2><%=data.title%></h2>
+        
+    <div class="slider-container">
+        <button class="slider-btn prev-btn">&lt;</button>
+        <div class="slider-content">
+            <% if (data.reviews.length > 0) { %>
+                <% data.reviews.forEach((r, index) => { %>
+                    <div class="testimonial-slide <%= index === 0 ? 'active' : '' %>" data-index="<%= index %>">
+                        <div class="reviewer-image-wrapper">
+                            <img src="<%= data.image.url %>" alt="<%= data.title %> Image" class="reviewer-avatar-lg">
+                            <span class="quote-icon">❝</span>
+                        </div>
+                        <div class="testimonial-stars">
+                            <% for (let i = 1; i <= 5; i++) { %>
+                                <span class="star <%= i <= r.rating ? 'filled' : '' %>">★</span>
+                            <% } %>
+                        </div>
+                        <h3 class="testimonial-text">"<%= r.comment %>"</h3>
+
+                        <div class="review-author-wrapper">
+                        <% if (r.author) { %>
+                            <h3 class="review-author-name"><i>~ <%= r.author.name %></i></h3>
+                        <% } %>
+                        </div>
+                        
+                        <% if (check_user && r.author && String(check_user._id) === String(r.author._id)) { %>
+                            <form method="post" action="/listings/<%=data._id%>/reviews/<%=r._id%>?_method=DELETE">
+                                <button class="btn review-delete-btn">Delete Review</button>
+                            </form>
+                        <% } %>
+                    
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <div class="no-reviews-message-slider">
+                    <p>No reviews yet. Be the first to share your experience!</p>
+                </div>
+            <% } %>
+        </div>
+        <button class="slider-btn next-btn">&gt;</button>
+    </div>
+    <div class="slider-dots">
+    </div>
+</section>
+
+<footer class="footer">
+        <div class="footer-container">
+            <div class="footer-newsletter">
+                <h2>Newsletter</h2>
+                <p>Sign up to receive updates and special offers.</p>
+                <form>
+                    <input type="email" placeholder="Email *" required>
+                    <label><input type="checkbox"> Yes, subscribe me to your newsletter.</label>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <div class="footer-info">
+                <div>
+                    <h2>Address</h2>
+                    <p>500 Terry Francine St.<br>San Francisco, CA 94158</p>
+                </div>
+                <div>
+                    <h2>Contact</h2>
+                    <p>info@mysite.com<br>123-456-7890</p>
+                </div>
+            </div>
+            <div class="footer-follow">
+                <h2>Follow</h2>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">TikTok</a></li>
+                </ul>
+                <div class="footer-links">
+                    <a href="#">Terms & Conditions</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Accessibility Statement</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-brand">
+            The Homygo
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 by The Homygo. Built with ❤</p>
+        </div>
+    </footer>
+    <script 
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+<script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+
+<script src="/js/map.js"></script>
+    <script src="/js/script.js"></script>
+</body>
+</html>

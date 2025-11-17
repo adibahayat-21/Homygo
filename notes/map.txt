@@ -1,0 +1,104 @@
+1️⃣ Schema & Data
+
+Tumne apne listing schema me geometry field add ki:
+
+geometry: {
+  type: { type: String, enum: ['Point'], required: true },
+  coordinates: { type: [Number], required: true }
+}
+
+
+Jab new listing create hoti hai, usme location aur country enter karte ho.
+
+2️⃣ Geocoding: Location → Coordinates
+
+getCoordinates function bana ke OpenStreetMap Nominatim API call kiya:
+
+async function getCoordinates(location, country) {
+  const response = await axios.get('https://nominatim.openstreetmap.org/search', {
+    params: { q: `${location},${country}`, format:'json', limit:1 }
+  });
+  if(response.data.length>0){
+      return { latitude: parseFloat(response.data[0].lat), longitude: parseFloat(response.data[0].lon) };
+  }
+  return null;
+}
+
+
+Ye function latitude/longitude return karta hai.
+
+Jab new listing save hoti hai, coordinates geometry.coordinates = [lon, lat] me store hote hai.
+
+3️⃣ Backend → Frontend Passing
+
+show_listing route me:
+
+res.render("show.ejs", { data });
+
+
+show.ejs me coordinates ko JS me pass kiya:
+
+<script>
+  window.coordinates = <%= JSON.stringify(data.geometry ? data.geometry.coordinates.map(Number) : [77.4126, 23.2599]) %>;
+</script>
+
+
+Default coordinates Bhopal [77.4126, 23.2599] rakhi agar geometry missing ho.
+
+4️⃣ Frontend Map (MapLibre)
+
+map.js me:
+
+const coords = [Number(window.coordinates[0]), Number(window.coordinates[1])];
+
+const map = new maplibregl.Map({
+  container: 'map',
+  style: 'https://demotiles.maplibre.org/style.json', // free OSM tiles
+  center: coords,
+  zoom: 12
+});
+
+new maplibregl.Marker()
+  .setLngLat(coords)
+  .addTo(map);
+
+
+✅ center aur marker dono same coordinates me set.
+
+window.coordinates ko number me convert kiya [Number(lng), Number(lat)].
+
+5️⃣ Map Styling
+
+CSS me .map-wrapper aur #map ko modern card-style, shadow, rounded corners, gradient background diya.
+
+6️⃣ Old Listings Update (Optional)
+
+updateOldListings.js file bana ke purani listings jisme geometry nahi thi unke liye coordinates fetch kiye OpenStreetMap se aur save kiye.
+
+🔹 Flow Summary
+
+Form Submission: User enters location + country.
+
+Backend: getCoordinates() → returns [lon, lat].
+
+Save to DB: Store in geometry.coordinates.
+
+Show Page (show.ejs): Pass geometry.coordinates to JS (window.coordinates).
+
+Frontend Map (map.js):
+
+Convert coordinates to number.
+
+Initialize MapLibre map with center and zoom.
+
+Place marker at coordinates.
+
+CSS: Style map wrapper & heading for modern look.
+
+DB se data fetch →
+
+res.render me pass →
+
+EJS me access →
+
+JS me coordinates read karke Map me set

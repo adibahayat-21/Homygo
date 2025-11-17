@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= find_category %> Listings</title>
+  <link href="https://fonts.googleapis.com/css2?family=MonteCarlo&family=Cormorant+Upright:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Font Awesome CDN Link -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-pOa8YgI0hx6ZRscn9dqvBr5lLYST9Wyr4Om4aZ6wXh6c4Bwg3iQht5R0Xp6p/DRF7FheS3o2rJ4hXkCwXg6x6Q=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+  <link rel="stylesheet" href="/category.css">
+</head>
+<body>
+  <header>
+        <div class="logo">
+            <img src="/aircraft.png" alt="Logo">
+            <h1>The HomyGo</h1>
+        </div>
+        <nav class="desktop-nav">
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/listings">Listings</a></li>
+                <li><a href="/about">About</a></li>
+              
+            </ul>
+        </nav>
+        
+        <div class="header-actions">
+            <a href="/listings" class="cta">Back to Listings</a>
+            <% if(!check_user) { %>
+                <a href="/login" class="header-auth-btn">Login</a>
+                <a href="/signup" class="header-auth-btn">Signup</a>
+            <% } else { %>
+                <a href="/logout" class="header-auth-btn">Logout</a>
+            <% } %>
+        </div>
+          <a href="/listings" class="cta back-btn">Back</a>
+        <i class="fa-solid fa-bars sidebar-toggle"></i>
+    </header>
+
+      <div class="sidebar">
+        <a href="/home">Home</a>
+        <a href="/listings">Listings</a>
+        <a href="/about">About</a>
+   
+        <% if(!check_user) { %>
+            <a href="/login">Login</a>
+            <a href="/signup">Signup</a>
+        <% } else { %>
+            <a href="/logout">Logout</a>
+        <% } %>
+    </div>
+<script>
+   document.addEventListener('DOMContentLoaded', () => {
+        const sidebarToggle = document.querySelector('.sidebar-toggle');
+        const sidebar = document.querySelector('.sidebar');
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+        document.addEventListener('click', (event) => {
+            if (!sidebar.contains(event.target) && !sidebarToggle.contains(event.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+    });
+  </script>
+<!-- Section Heading -->
+<section class="section-heading">
+  <h2 class="reed-title reveal-text" data-text="<%= find_category %> Listings"></h2>
+  <h3 class="reed-subtitle reveal-text" data-text="Find Your Perfect Stay"></h3>
+</section>
+
+<!-- Listings Grid -->
+<% if(listingdata && listingdata.length > 0) { %>
+  <h2 class="category-results"><b><%= find_category %></b> Results!</h2>
+
+  <section class="listings-container">
+    <% for (let d of listingdata) { %>
+      <div class="listing-card">
+        <div class="listing-image">
+          <img src="<%= d.image.url %>" alt="<%= d.title %>">
+        </div>
+        <div class="overlay">
+          <h3><%= d.title %></h3>
+          <p><%= d.description %></p>
+          <div class="listing-info">
+            <span class="price">₹<%= d.price %></span>
+            <span class="location"><%= d.location %>, <%= d.country %></span>
+          </div>
+          <a href="/listings/<%= d._id %>" class="read-more">Read More</a>
+        </div>
+      </div>
+    <% } %>
+  </section>
+<% } else { %>
+  <h2 class="no-results">No Results Found!</h2>
+<% } %>
+
+
+<!-- Footer -->
+ <footer class="footer" style="margin-top: 20px;">
+  <div class="footer-container">
+
+    <!-- Newsletter -->
+    <div class="footer-newsletter">
+      <h2>Newsletter</h2>
+      <p>Sign up to receive updates and special offers.</p>
+      <form>
+        <input type="email" placeholder="Email *" required>
+        <label>
+          <input type="checkbox"> Yes, subscribe me to your newsletter.
+        </label>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <!-- Address + Contact -->
+    <div class="footer-info">
+      <div>
+        <h2>Address</h2>
+        <p>500 Terry Francine St.<br>San Francisco, CA 94158</p>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <p>info@mysite.com<br>123-456-7890</p>
+      </div>
+    </div>
+
+    <!-- Follow -->
+    <div class="footer-follow">
+      <h2>Follow</h2>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">TikTok</a></li>
+      </ul>
+      <div class="footer-links">
+        <a href="#">Terms & Conditions</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Accessibility Statement</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Big decorative brand text -->
+  <div class="footer-brand">
+    The Homygo
+  </div>
+
+  <!-- Copyright -->
+  <div class="footer-bottom">
+    <p>© 2025 by The Homygo. Built with ❤</p>
+  </div>
+</footer>
+<script src="/listings.js"></script>
+</body>
+</html>

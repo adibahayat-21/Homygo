@@ -1,0 +1,809 @@
+/*
+ * General body font
+ * Moved font import to EJS head for better practice
+ */
+body {
+    font-family: 'Cormorant Upright', serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+/* Header styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: #fbf7f7;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+}
+
+header .logo img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+header .logo h1 {
+    font-family: "MonteCarlo", cursive;
+    font-size: 30px;
+    font-weight: 600;
+    color: #c9330f;
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 18px;
+    color: #c9330f;
+}
+
+.reed-title {
+    font-family: "MonteCarlo", cursive;
+    font-size: 120px;
+    font-weight: 30;
+    display: flex;
+    justify-content: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #c9330f;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #c9330f;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    border-bottom: 2px solid #c9330f;
+}
+
+/* Header action buttons */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cta {
+    border: 1px solid #c9330f;
+    padding: 8px 20px;
+    font-family: 'Cormorant Upright', serif;
+    font-size: 16px;
+    color: #c9330f;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.cta:hover {
+    background-color: #c9330f;
+    color: #f3ecec;
+}
+
+.header-auth-btn {
+    text-decoration: none;
+    color: #c9330f;
+    font-family: 'Cormorant Upright', serif;
+    font-size: 16px;
+    padding: 8px;
+    transition: color 0.3s ease;
+}
+
+.header-auth-btn:hover {
+    color: #a52a0b;
+}
+
+/* Sidebar Toggle Icon Styling */
+.sidebar-toggle {
+    font-size: 24px;
+    color: #c9330f;
+    cursor: pointer;
+    display: none; /* Hidden by default on desktop */
+}
+
+/* Sidebar Styling */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #fbf7f7;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.4s ease;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    padding-top: 80px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #c9330f;
+    padding: 15px 25px;
+    font-size: 18px;
+    font-family: 'Cormorant Upright', serif;
+    border-bottom: 1px solid rgba(201, 51, 15, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover {
+    background-color: rgba(201, 51, 15, 0.1);
+}
+
+.sidebar.active {
+    right: 0;
+}
+
+/* Flash message styles */
+.flash-success,
+.flash-error {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 920px;
+    width: calc(100% - 40px);
+    padding: 12px 16px;
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 8px 30px rgba(12, 20, 40, 0.35);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    font-size: 15px;
+    line-height: 1.2;
+    backdrop-filter: blur(6px);
+    transition: transform 220ms ease, opacity 220ms ease;
+}
+
+.flash-success {
+    background: linear-gradient(90deg, rgba(219, 28, 66, 0.95), rgba(227, 58, 83, 0.95));
+}
+
+.flash-error {
+    background: linear-gradient(90deg, rgba(55, 53, 53, 0.95), rgba(158, 156, 159, 0.95));
+}
+
+.flash-icon {
+    min-width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.12);
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.flash-text {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 8px;
+}
+
+.flash-close-btn {
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 16px;
+    padding: 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 120ms ease, background 120ms ease;
+}
+
+.flash-close-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* PHOTO GALLERY SECTION */
+.photo-gallery {
+    margin-top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 40px 50px;
+    background-color: #fffaf8;
+}
+
+.gallery-image-1 {
+    width: 300px;
+    height: 250px;
+}
+
+.gallery-image-2 {
+    height: 250px;
+    width: 500px;
+}
+
+.gallery-image-3 {
+    width: 300px;
+    height: 250px;
+}
+
+.photo-gallery img {
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.photo-gallery img:hover {
+    transform: scale(1.03);
+}
+
+/* SECTION HEADING (CENTERED) */
+.section-heading {
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 30px;
+}
+
+.section-heading h2 {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 42px;
+    font-weight: 600;
+    color: #c9330f;
+    margin: 0;
+}
+
+.section-heading h3 {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: #c9330f;
+    margin-top: 10px;
+}
+
+/* TEXT SECTION (TEXT + IMAGE) */
+.text-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 60px 50px;
+    background-color: #f9f6f4;
+    margin-bottom: 20px;
+}
+
+.text {
+    flex: 1;
+}
+
+.text div {
+    width: 100%;
+}
+
+.text p {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 18px;
+    color: #c9330f;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.about-btn {
+    background-color: #c9330f;
+    color: #fff;
+    padding: 12px 25px;
+    text-decoration: none;
+    font-size: 16px;
+    font-family: 'Cormorant Upright', serif;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.about-btn:hover {
+    background-color: #a52a0b;
+}
+
+.text-content-image {
+    height: 60%;
+    width: 60%;
+    max-width: 100%;
+    height: auto;
+}
+
+.text-image {
+    flex: 1;
+}
+
+.text-image img {
+    width: 100%;
+    height: 60%;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* FEATURE SECTION */
+.feature-section {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 80px 60px;
+    background-color: #f9f6f4;
+}
+
+.feature-image {
+    flex: 1;
+}
+
+.feature-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.feature-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+}
+
+.feature-text h2 {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 48px;
+    font-weight: 600;
+    color: #c9330f;
+    margin-bottom: 20px;
+}
+
+.feature-text h3 {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 24px;
+    font-style: italic;
+    font-weight: 400;
+    color: #c9330f;
+    margin-bottom: 20px;
+}
+
+.feature-text p {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #c9330f;
+}
+
+/* CULINARY EXPERIENCE SECTION */
+.culinary-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 80px 60px;
+    background-color: #f9f6f4;
+    margin-top: -170px;
+}
+
+.culinary-content {
+    flex: 1;
+    margin-top: 100px;
+}
+
+.culinary-content h2 {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 48px;
+    font-weight: 600;
+    color: #c9330f;
+    margin-bottom: 15px;
+}
+
+.culinary-content h3 {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 22px;
+    font-style: italic;
+    font-weight: 400;
+    color: #c9330f;
+    margin-bottom: 20px;
+}
+
+.culinary-content p {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #c9330f;
+    margin-bottom: 30px;
+}
+
+.culinary-btn {
+    display: inline-block;
+    border: 1px solid #c9330f;
+    padding: 12px 25px;
+    font-family: 'Cormorant Upright', serif;
+    font-size: 16px;
+    color: #c9330f;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.culinary-btn:hover {
+    background-color: #c9330f;
+    color: #fff;
+}
+
+.culinary-extra-img-container {
+    margin-top: 80px;
+}
+
+.culinary-extra-img-container2 {
+    margin-top: 40px;
+}
+
+.culinary-image {
+    flex: 1;
+}
+
+.culinary-image img {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    margin-top: -800px;
+}
+
+/* Reveal effect styles */
+.reveal-img {
+    width: 50%;
+    max-width: 300px;
+    height: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: block;
+    margin-bottom: 20px;
+}
+
+.reveal-img-2 {
+    width: 100%;
+    margin-top: 40px;
+    margin-left: 400px;
+}
+
+.reveal-text {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 500;
+    color: #c9330f;
+    white-space: nowrap;
+    border-right: 2px solid #c9330f;
+    overflow: hidden;
+    margin-top: 40px;
+    font-weight: 400;
+}
+
+.reveal-text-2 {
+    color: #c9330f;
+    font-size: 30px;
+    font-weight: 400;
+    margin-left: 130px;
+}
+
+.byline {
+    color: #c9330f;
+    font-style: italic;
+    font-weight: 400;
+    font-family: 'MonteCarlo', cursive;
+    margin-left: 10px;
+}
+
+.byline-2 {
+    margin-left: 130px;
+}
+
+/* Instagram Gallery */
+.instagram-heading {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 30px;
+    color: #c9330f;
+}
+
+.instagram-gallery {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin-left: 0;
+    padding: 0 20px;
+}
+
+.instagram-gallery img {
+    height: 400px;
+    width: 400px;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.instagram-cta {
+    text-align: center;
+    margin: 30px 0;
+}
+
+/* Footer */
+.footer {
+    background: linear-gradient(to top, rgba(202, 3, 20, 0.7), rgba(243, 30, 30, 0.9));
+    color: #fff;
+    padding: 60px 80px 40px;
+    font-family: 'Cormorant Upright', serif;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 40px;
+}
+
+.footer h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.footer-newsletter p {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.footer-newsletter input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: none;
+    outline: none;
+}
+
+.footer-newsletter label {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.footer-newsletter button {
+    background: #fff;
+    color: #3b0d0d;
+    padding: 10px 25px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 600;
+}
+
+.footer-newsletter button:hover {
+    background: #7c192b;
+    color: #fff;
+}
+
+.footer-info p {
+    margin: 5px 0;
+    font-size: 15px;
+}
+
+.footer-follow ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+}
+
+.footer-follow ul li {
+    margin-bottom: 8px;
+}
+
+.footer-follow ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-follow ul li a:hover {
+    color: #c9330f;
+}
+
+.footer-links a {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #ccc;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+.footer-brand {
+    text-align: center;
+    font-family: "MonteCarlo", cursive;
+    font-size: 110px;
+    font-weight: normal;
+    color: #fff;
+    margin: 30px 0 10px 0;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 14px;
+    color: #ddd;
+    margin-bottom: 10px;
+}
+
+.footer-bottom p {
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .culinary-extra-img-container2 {
+        margin-top: 20px;
+    }
+    .reveal-text-2 {
+        margin-left: 0;
+    }
+    .byline-2 {
+        margin-left: 0;
+    }
+    .reveal-img-2 {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 992px) {
+    .reed-title {
+        font-size: 90px;
+    }
+    .culinary-section {
+        margin-top: -100px;
+    }
+    .culinary-image img {
+        height: 500px;
+        margin-top: -600px;
+    }
+    .culinary-extra-img-container {
+        margin-top: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 20px;
+    }
+    header .desktop-nav {
+        display: none;
+    }
+    .header-actions {
+        display: none; /* Hiding the entire button group on mobile */
+    }
+    .sidebar-toggle {
+        display: block;
+    }
+    .reed-title {
+        font-size: 70px;
+    }
+    .photo-gallery {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+    }
+    .gallery-image-1,
+    .gallery-image-2,
+    .gallery-image-3 {
+        width: 100% !important;
+        height: auto !important;
+    }
+    .section-heading h2 {
+        font-size: 32px;
+    }
+    .section-heading h3 {
+        font-size: 22px;
+    }
+    .text-section,
+    .feature-section,
+    .culinary-section {
+        flex-direction: column;
+        padding: 40px 20px;
+    }
+    .text-section .text,
+    .feature-section .feature-text,
+    .culinary-section .culinary-content {
+        order: 2;
+        text-align: center;
+    }
+    .culinary-content h2{
+        margin-top: -50px;
+    }
+    .text-section .text-image,
+    .feature-section .feature-image,
+    .culinary-section .culinary-image {
+        order: 1;
+        margin-bottom: 20px;
+    }
+    .text-content-image {
+        width: 100%;
+        height: auto;
+    }
+    .culinary-section {
+        margin-top: 0;
+    }
+    .culinary-image img {
+        height: auto;
+        margin-top: 0;
+    }
+    .culinary-extra-img-container {
+        margin-top: 60px;
+    }
+    .culinary-extra-img-container2 {
+        margin-top: 50px;
+    }
+    .reveal-img {
+        width: 100%;
+        max-width: 100%;
+    }
+    .reveal-img-2 {
+        margin-left: 0;
+    }
+    .reveal-text {
+        font-size: 18px;
+        margin-top: 60px;
+        text-align: center;
+    }
+    .reveal-text-2 {
+        font-size: 24px;
+        margin-left: 0;
+        margin-top: 60px;
+        text-align: center;
+    }
+    .byline {
+        margin-left: 0;
+        text-align: center;
+        display: block;
+    }
+    .byline-2 {
+        margin-left: 0;
+    }
+    .instagram-gallery {
+        flex-direction: column;
+        padding: 0;
+        gap: 15px;
+    }
+    .instagram-gallery img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .reed-title {
+        font-size: 50px;
+    }
+   .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    .footer-brand {
+        font-size: 50px;
+    }
+}
