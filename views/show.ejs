@@ -144,7 +144,7 @@
                 
                 <% if(data.owner) { %>
                     <hr>
-                    <h3 class="hosted-by"><i>Hosted By "<%= data.owner.name %>"</i></h3>
+                    <h3 class="hosted-by"><i>Hosted By "<%= data.owner.username %>"</i></h3>
                 <% } %>
                 
             </div>
@@ -229,7 +229,7 @@
 
                         <div class="review-author-wrapper">
                         <% if (r.author) { %>
-                            <h3 class="review-author-name"><i>~ <%= r.author.name %></i></h3>
+                            <h3 class="review-author-name"><i>~ <%= r.author.username %></i></h3>
                         <% } %>
                         </div>
                         

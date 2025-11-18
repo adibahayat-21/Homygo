@@ -4,30 +4,47 @@ const axios = require('axios');
 
 async function getCoordinates(location,country)
 {
-    try{
-        const response=await axios.get('https://nominatim.openstreetmap.org/search',{
-            params:{
-                q:`${location},${country}`,
-                format:'json',
-                limit:1
+    const query = `${location}, ${country}`;
+    const timeout = 5000;
+    const nominatimUserAgent = process.env.NOMINATIM_USER_AGENT || 'Homygo/1.0 (https://example.com)';
+
+    // If MAP_TOKEN is provided use Mapbox (more reliable for production)
+    if (process.env.MAP_TOKEN) {
+        try {
+            const mb = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json`, {
+                params: { access_token: process.env.MAP_TOKEN, limit: 1 },
+                timeout
+            });
+            if (mb.data && Array.isArray(mb.data.features) && mb.data.features.length > 0) {
+                const [longitude, latitude] = mb.data.features[0].center;
+                return { latitude: parseFloat(latitude), longitude: parseFloat(longitude) };
             }
-        });
-        if(response.data.length>0)
-        {
-            const{lat,lon}=response.data[0];
-            return {
-                latitude: parseFloat(lat),
-                longitude: parseFloat(lon)
-            }
+        } catch (err) {
+            console.warn('Mapbox geocoding failed, falling back to Nominatim:', err.message);
         }
-        else
-            return null;
-    }catch(error)
-    {
-        console.error("Geocoding failed:",error);
-        return null;
     }
+
+    // Fallback to Nominatim with proper headers and a small retry
+    for (let attempt = 1; attempt <= 2; attempt++) {
+        try {
+            const response = await axios.get('https://nominatim.openstreetmap.org/search', {
+                params: { q: query, format: 'json', limit: 1 },
+                headers: { 'User-Agent': nominatimUserAgent, Referer: process.env.APP_ORIGIN || 'https://example.com' },
+                timeout
+            });
+            if (response.data && response.data.length > 0) {
+                const { lat, lon } = response.data[0];
+                return { latitude: parseFloat(lat), longitude: parseFloat(lon) };
+            }
+            return null;
+        } catch (error) {
+            console.error(`Nominatim attempt ${attempt} failed:`, error.message);
+            if (attempt < 2) await new Promise(r => setTimeout(r, 600));
+        }
+    }
+    return null;
 }
+
 
 
 // ======== listings page (it shows all the listings) =======================================
@@ -108,7 +125,7 @@ const add_new=async (req,res,next) => {
         coordinates: [coordinates.longitude, coordinates.latitude]
     }
     new_listing.owner=req.user._id;
-    new_listing.image={url:url_path,filename};
+    // new_listing.image={url:url_path,filename};
     await new_listing.save();
     req.flash("success","New Listing Added Successfully!");
     res.redirect("/listings");

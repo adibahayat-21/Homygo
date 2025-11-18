@@ -31,7 +31,7 @@ const apiKey = process.env.MAP_TOKEN;
 
 router.route("/")
 .get(wrapAsync(listingController.index))
-.post(isLoggedIn, upload.single('listing[image]'),validateListing,wrapAsync(listingController.add_new));
+.post(isLoggedIn, upload.single('image'),validateListing,wrapAsync(listingController.add_new));
 // here multer middleware is used to upload the image to cloudinary (upload.single('image') is done by multer)
 
 
@@ -76,7 +76,7 @@ router.get("/:id/edit",isLoggedIn,isOwner,wrapAsync(listingController.edit_page)
 
 router.route("/:id")
 .get(wrapAsync(listingController.show_listing))
-.put(isOwner,upload.single('listing[image]'),validateListing,wrapAsync(listingController.update_listing))
+.put(isOwner,upload.single('image'),validateListing,wrapAsync(listingController.update_listing))
 .delete(isLoggedIn,isOwner,wrapAsync(listingController.delete_listing))
 
 // Ek path ke liye multiple methods ho (GET + POST + PUT + DELETE) → tab .route() chain use karte ho:
