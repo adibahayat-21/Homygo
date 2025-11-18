@@ -136,7 +136,7 @@ const add_new=async (req,res,next) => {
 const edit_page=async(req,res)=>{
     let {id}=req.params;
     const listing=res.locals.listing;
-    let original_imageUrl=listing.image.url;
+    let original_imageUrl=listing.image ? listing.image.url :"/default-image.jpg";
     original_imageUrl=original_imageUrl.replace("/upload","/upload/h_300,w_250"); //it will lower the quality of current image while showing in the edit page because there is no such need of showing the image in high quality in the edit page
     res.render("edit.ejs",{listing,original_imageUrl});
 }
@@ -171,12 +171,12 @@ const update_listing = async (req, res) => {
         };
     }
 
-    if(typeof req.file!=="undefined")
-    {
-    let url_path=req.file.path;
-    let filename=req.file.filename;
-    listing.image={url:url_path,filename};
-    }
+   if (req.file) { 
+    // sirf tab update karo jab nayi image upload hui ho
+    listing.image = { url: req.file.path, filename: req.file.filename };
+}
+// Agar req.file undefined hai → purani image wahi rahegi
+
 
     await listing.save();
 
